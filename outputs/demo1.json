@@ -1,0 +1,41 @@
+{
+  "query": "Summarize each document and highlight differences.",
+  "answer": "\"Why Won\u2019t You Listen to Me_ Measuring Receptiveness to Opposing Views.pdf\" discusses factors related to receptiveness, such as \"Derogation of opponents\" and \"Taboo issues,\" presenting numerical values for them, and is attributed to Minson, Chen, and Tinsley in *Management Science* (Why Won\u2019t You Listen to Me_ Measuring Receptiveness to Opposing Views.pdf p.10). Conversely, \"Conversational Receptiveness - Expressing engagement with opposing views..pdf\" states that understanding buffers against the negative impact of conflict on relationships, with M. Yeomans, et al. as authors in *Organizational Behavior and Human Decision Processes* (Conversational Receptiveness - Expressing engagement with opposing views..pdf p.16). While both documents are from 2020, they differ in authors, specific research focus, and publication journal.",
+  "citations": [
+    {
+      "doc_id": "doc3",
+      "filename": "Why Won\u2019t You Listen to Me_ Measuring Receptiveness to Opposing Views.pdf",
+      "page": 1,
+      "excerpt": "it http://www.informs.org"
+    },
+    {
+      "doc_id": "doc3",
+      "filename": "Why Won\u2019t You Listen to Me_ Measuring Receptiveness to Opposing Views.pdf",
+      "page": 10,
+      "excerpt": "ity 0.45 1.00\nFactor 3: Derogation of opponents 0.61 0.35 1.00\nFactor 4: Taboo issues 0.28 0.15 0.32 1.00\nMinson, Chen, and Tinsley:Measuring Receptiveness to Opposing Views\nManagement Science, 2020, vol. 66, no. 7, pp. 3069\u20133094, \u00a9 2019 IN"
+    },
+    {
+      "doc_id": "doc1",
+      "filename": "Conversational Receptiveness - Expressing engagement with opposing views..pdf",
+      "page": 16,
+      "excerpt": "\nderstanding buffers against the negative impact of conflict on relationship\nM. Yeomans, et al.\nOrganizational Behavior and Human Decision Processes 160 (2020) 131\u2013148\n146"
+    }
+  ],
+  "meta": {
+    "used_model": "gemini-2.5-flash",
+    "num_docs": 3,
+    "retrieval_k": 3,
+    "latency_ms": 14117,
+    "tokens_input": 0,
+    "tokens_output": 0,
+    "confidence": 1.0
+  },
+  "logs": [
+    "[2025-11-12T08:27:28Z] Start pipeline with 3 PDFs; query=\"Summarize each document and highlight differences.\"",
+    "[2025-11-12T08:27:28Z] Loaded PDF data\\Conversational+Receptiveness+-+Expressing+engagement+with+opposing+views..pdf with 18 pages",
+    "[2025-11-12T08:27:29Z] Loaded PDF data\\Receptiveness+to+Opposing+Views+-+Conceptualization+and+Integrative+Review..pdf with 19 pages",
+    "[2025-11-12T08:27:29Z] Loaded PDF data\\Why+Won\u2019t+You+Listen+to+Me_+Measuring+Receptiveness+to+Opposing+Views.pdf with 27 pages",
+    "[2025-11-12T08:27:30Z] Chunked into 388 passages total",
+    "[2025-11-12T08:27:37Z] TopK retrieval returned 3 passages"
+  ]
+}

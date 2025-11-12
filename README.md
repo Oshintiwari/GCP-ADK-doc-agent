@@ -158,6 +158,9 @@ python -m scripts.run_query --q "Summarize each document and highlight differenc
   }
 }
 ```
+---
+Latency was reduced from several minutes to just a few seconds by adding in-memory caching for embeddings, increasing chunk size to minimize total chunk count, and lowering retrieval top-k to reduce model load. PDF content is now parsed once at startup rather than on every query. Batch embedding calls were added where supported, cutting down request overhead. Together these optimizations reduced end-to-end response time from roughly 2–3 minutes to about 6–9 seconds.
+```
 
 ---
 

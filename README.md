@@ -37,24 +37,44 @@ python -c "import os, google.generativeai as genai; genai.configure(api_key=os.g
 
 ---
 
-## 🧩 Directory Structure
+## 📂 Directory Structure
+
 ```
 adk_app/
-  ├── agents/
-  │   ├── ingestion_agent.py
-  │   ├── reasoning_agent.py
-  ├── llm_clients.py
-  ├── retrieval.py
-  ├── settings.py
-  ├── utils.py
-  ├── schemas.py
-  ├── pipeline.py
+├── agents/
+│   ├── ingestion_agent.py
+│   ├── reasoning_agent.py
+│   └── __pycache__/
+├── cache.py
+├── llm_clients.py
+├── logging_utils.py
+├── pipeline.py
+├── retrieval.py
+├── schemas.py
+├── settings.py
+├── utils.py
+├── __pycache__/
+
 scripts/
-  ├── run_query.py
+├── run_query.py
+├── __pycache__/
+
+tests/
+├── (test files)
+
 data/
-  ├── *.pdf
+├── *.pdf
+
 outputs/
-  ├── demo1.json
+├── demo1.json
+
+.venv/
+.env
+.env.example
+.gitignore
+LICENSE
+README.md
+requirements.txt
 ```
 
 ---

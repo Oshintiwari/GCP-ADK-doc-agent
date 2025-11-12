@@ -4,7 +4,7 @@ This project implements a lightweight **retrieval-augmented generation (RAG)** p
 
 ---
 
-## 🧠 Overview
+##  Overview
 The app extracts text from PDFs, chunks it, embeds each passage using `text-embedding-004`, and retrieves the top passages most relevant to a user query. Those passages are then passed to `gemini-2.5-flash` for grounded, citation-rich answers.
 
 ---
@@ -37,49 +37,87 @@ python -c "import os, google.generativeai as genai; genai.configure(api_key=os.g
 
 ---
 
-## 📂 Directory Structure
+##  Directory Structure
 
 ```
-adk_app/
-├── agents/
-│   ├── ingestion_agent.py
-│   ├── reasoning_agent.py
-│   └── __pycache__/
-├── cache.py
-├── llm_clients.py
-├── logging_utils.py
-├── pipeline.py
-├── retrieval.py
-├── schemas.py
-├── settings.py
-├── utils.py
-├── __pycache__/
+GCP-ADK-DOC-AGENT/
+│
+├── adk_app/
+│   ├── __pycache__/
+│   ├── agents/
+│   │   ├── __pycache__/
+│   │   ├── ingestion_agent.py
+│   │   ├── reasoning_agent.py
+│   ├── cache.py
+│   ├── llm_clients.py
+│   ├── logging_utils.py
+│   ├── pipeline.py
+│   ├── retrieval.py
+│   ├── schemas.py
+│   ├── server.py
+│   ├── settings.py
+│   ├── utils.py
+│
+├── data/
+├── outputs/
+├── scripts/
+│   ├── __pycache__/
+│   ├── run_query.py
+│
+├── tests/
+├── .env
+├── .env.example
+├── .gitignore
+├── Dockerfile
+├── LICENSE
+├── README.md
+└── requirements.txt
+```
 
-scripts/
-├── run_query.py
-├── __pycache__/
+##  Local Development
 
-tests/
-├── (test files)
+1. Create and activate virtual environment:
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+```
+2. Run locally:
+```powershell
+uvicorn adk_app.server:app --host 127.0.0.1 --port 8080
+```
+3. Test endpoint:
+```powershell
+Invoke-RestMethod -Uri "http://127.0.0.1:8080/health"
+```
 
-data/
-├── *.pdf
+🐳 Docker Build
 
-outputs/
-├── demo1.json
+```powershell
+docker build -t adk-doc-agent:demo .
+docker run -p 8080:8080 --env GOOGLE_API_KEY=$env:GOOGLE_API_KEY adk-doc-agent:demo
+```
 
-.venv/
-.env
-.env.example
-.gitignore
-LICENSE
-README.md
-requirements.txt
+☁️ Deploy on Google Cloud Run
+
+```powershell
+gcloud builds submit --tag us-central1-docker.pkg.dev/<PROJECT_ID>/adk-images/adk-doc-agent
+
+gcloud run deploy adk-doc-agent `
+  --image us-central1-docker.pkg.dev/<PROJECT_ID>/adk-images/adk-doc-agent `
+  --region us-central1 `
+  --allow-unauthenticated `
+  --platform managed `
+  --memory 1Gi `
+  --cpu 1 `
+  --timeout 300 `
+  --min-instances 0 `
+  --set-env-vars "GOOGLE_API_KEY=$env:GOOGLE_API_KEY"
 ```
 
 ---
 
-## 🚀 Running the Pipeline
+##  Running the Pipeline
 Run the following command to ask a question over PDFs in the `data/` folder:
 ```bash
 python -m scripts.run_query --q "Summarize each document and highlight differences." --data data --top-k 3 --show-logs --save-json outputs/demo1.json
@@ -123,7 +161,7 @@ python -m scripts.run_query --q "Summarize each document and highlight differenc
 
 ---
 
-## 🧪 Example Queries
+##  Example Queries
 ```bash
 python -m scripts.run_query --q "How do the authors define receptiveness? Provide phrasing and citations." --data data --top-k 5 --show-logs
 python -m scripts.run_query --q "List any experiments involving adolescents or children." --data data --top-k 5 --show-logs
@@ -132,7 +170,7 @@ python -m scripts.run_query --q "Compare conclusions across studies." --data dat
 
 ---
 
-## 🧰 Key Components
+##  Key Components
 | File | Description |
 |------|--------------|
 | `adk_app/llm_clients.py` | Connects to Gemini 2.5 and embedding APIs |
@@ -143,7 +181,7 @@ python -m scripts.run_query --q "Compare conclusions across studies." --data dat
 
 ---
 
-## 🧩 Optional Enhancements
+##  Optional Enhancements
 - Cache embeddings for faster repeat runs  
 - Track `retrieval_time_ms` and `generation_time_ms` in metadata  
 - Support multimodal (image + text) Gemini models for PDFs with figures  
@@ -151,7 +189,7 @@ python -m scripts.run_query --q "Compare conclusions across studies." --data dat
 
 ---
 
-## 🧭 Quick Demo Workflow
+##  Quick Demo Workflow
 ```bash
 # Example 1: High-level summary
 python -m scripts.run_query --q "Summarize each document and highlight differences." --data data --top-k 3 --show-logs --save-json outputs/demo1.json
